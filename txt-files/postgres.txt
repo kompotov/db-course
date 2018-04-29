@@ -1,0 +1,35 @@
+CREATE DATABASE course;
+
+CREATE TABLE "books"
+(
+  "id" SERIAL,
+  "title" VARCHAR(100),
+  "year" INT,
+  "author" VARCHAR(100),
+  "price" INT
+);
+
+CREATE TABLE "publishers"
+(
+  "id" SERIAL,
+  "name" VARCHAR(100),
+  "site" VARCHAR(100)
+);
+
+INSERT INTO "books"
+  ("title", "year", "author", "price")
+VALUES
+  ('Мастер и Маргарита', 1929, 'Михаил Афанасьевич Булгаков', 100);
+
+SELECT * FROM "books"
+WHERE "author"='Михаил Афанасьевич Булгаков';
+
+SELECT * FROM "books"
+WHERE "price"<500;
+
+SELECT "author", "year" FROM "books"
+WHERE "author" = 'Михаил Афанасьевич Булгаков'
+ORDER BY "year";
+
+SELECT "author" FROM "books"
+WHERE 1990 <= "year" AND "year" <= 1999;

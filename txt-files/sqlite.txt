@@ -1,0 +1,33 @@
+CREATE TABLE `books`
+(
+    `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+    `title` TEXT,
+    `year` INTEGER,
+    `author` TEXT,
+    `price` INTEGER
+);
+
+CREATE TABLE `publishers`
+(
+  `id` INTEGER PRIMARY KEY AUTOINCREMENT,
+  `name` TEXT,
+  `site` TEXT
+);
+
+INSERT INTO `books`
+  (`title`, `year`, `author`, `price`)
+VALUES
+  ('Мастер и Маргарита', 1929, 'Михаил Афанасьевич Булгаков', 100);
+
+SELECT * FROM `books`
+WHERE `author`='Михаил Афанасьевич Булгаков';
+
+SELECT * FROM `books`
+WHERE `price`<500;
+
+SELECT `author`, `year` FROM `books`
+WHERE `author` = 'Михаил Афанасьевич Булгаков'
+ORDER BY `year`;
+
+SELECT `author` FROM `books`
+WHERE 1990 <= `year` AND `year` <= 1999;

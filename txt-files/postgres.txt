@@ -1,35 +1,18 @@
-CREATE DATABASE course;
-
-CREATE TABLE "books"
+CREATE TABLE "products"
 (
-  "id" SERIAL,
-  "title" VARCHAR(100),
-  "year" INT,
-  "author" VARCHAR(100),
-  "price" INT
+    "id" SERIAL,
+    "code" VARCHAR(50) UNIQUE NOT NULL,
+    "name" VARCHAR(255),
+    "image" VARCHAR(255),
+    "price" NUMERIC(10,2),
+    "created_at" TIMESTAMP DEFAULT NOW(),
+    "count" INT
 );
 
-CREATE TABLE "publishers"
-(
-  "id" SERIAL,
-  "name" VARCHAR(100),
-  "site" VARCHAR(100)
-);
-
-INSERT INTO "books"
-  ("title", "year", "author", "price")
+INSERT INTO "products"
+    ("code", "name", "image", "price", "count")
 VALUES
-  ('Мастер и Маргарита', 1929, 'Михаил Афанасьевич Булгаков', 100);
-
-SELECT * FROM "books"
-WHERE "author"='Михаил Афанасьевич Булгаков';
-
-SELECT * FROM "books"
-WHERE "price"<500;
-
-SELECT "author", "year" FROM "books"
-WHERE "author" = 'Михаил Афанасьевич Булгаков'
-ORDER BY "year";
-
-SELECT "author" FROM "books"
-WHERE 1990 <= "year" AND "year" <= 1999;
+    ('AB12T45', 'Стол', 'https://ikea.com/table.png', '100.50', 10),
+    ('NH12MY31', 'Зеркало', 'https://ikea.com/mirror.png', '30', 40),
+    ('HT31JY54', 'Кресло', 'https://ikea.com/chair.png', '79.99', 15),
+    ('LY755F4', 'Лампа', 'https://ikea.com/lamp.png', '15.99', 60);

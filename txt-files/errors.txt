@@ -1,0 +1,93 @@
+Mysql:
+
+    Пустой артикул
+        Запрос
+            INSERT INTO `products`
+                (`name`, `image`, `price`, `count`)
+            VALUES
+                ('Стол', 'https://ikea.com/table.png', '100.50', 10);
+        Ответ
+            [2019-09-28 13:01:50] [HY000][1364] Field 'code' doesn't have a default value
+
+    Количество на складе менее нуля
+        Запрос
+            INSERT INTO `products`
+                 (`code`, `name`, `image`, `price`, `count`)
+            VALUES
+                 ('AB13T45', 'Стол', 'https://ikea.com/table.png', '100.50', -10)
+        Ответ
+            [2019-09-28 13:04:48] [22001][1264] Data truncation: Out of range value for column 'count' at row 1
+            [2019-09-28 13:04:48] [01000][1264] Out of range value for column 'count' at row 1
+
+    Отрицательная цена
+        Запрос
+            INSERT INTO `products`
+                (`code`, `name`, `image`, `price`, `count`)
+            VALUES
+                ('AB13T45', 'Стол', 'https://ikea.com/table.png', -100.50, 10);
+        Ответ
+            [2019-10-02 13:50:39] [22001][1264] Data truncation: Out of range value for column 'price' at row 1
+            [2019-10-02 13:50:39] [01000][1264] Out of range value for column 'price' at row 1
+
+Postgres:
+
+    Пустой артикул
+        Запрос
+            INSERT INTO "products"
+                ("name", "image", "price", "count")
+            VALUES
+                ('Стол', 'https://ikea.com/table.png', '100.50', 10);
+        Ответ
+            [2019-10-02 14:38:31] [23502] ERROR: null value in column "code" violates not-null constraint
+            [2019-10-02 14:38:31] Подробности: Failing row contains (5, null, Стол, https://ikea.com/table.png, 100.50, 2019-10-02 11:38:31.677438, 10).
+
+    Количество на складе менее нуля
+        Запрос
+            INSERT INTO "products"
+                 ("code", "name", "image", "price", "count")
+            VALUES
+                 ('AB13T45', 'Стол', 'https://ikea.com/table.png', '100.50', -10)
+        Ответ
+            Без ошибки
+            [2019-10-02 14:39:56] 1 row affected in 2 ms
+
+    Отрицательная цена
+        Запрос
+            INSERT INTO "products"
+                ("code", "name", "image", "price", "count")
+            VALUES
+                ('AB14T45', 'Стол', 'https://ikea.com/table.png', -100.50, 10);
+        Ответ
+            Без ошибки
+            [2019-10-02 14:41:19] 1 row affected in 2 ms
+
+SQLite:
+
+    Пустой артикул
+            Запрос
+                INSERT INTO "products"
+                    ("name", "image", "price", "count")
+                VALUES
+                    ('Стол', 'https://ikea.com/table.png', '100.50', 10);
+            Ответ
+                [2019-10-02 15:26:29] [19] [SQLITE_CONSTRAINT]  Abort due to constraint violation (NOT NULL constraint failed: products.code)
+
+    Количество на складе менее нуля
+        Запрос
+            INSERT INTO "products"
+                 ("code", "name", "image", "price", "count")
+            VALUES
+                 ('AB13T45', 'Стол', 'https://ikea.com/table.png', '100.50', -10)
+        Ответ
+            Без ошибки
+            [2019-10-02 15:37:15] 1 row affected in 8 ms
+
+    Отрицательная цена
+        Запрос
+            INSERT INTO "products"
+                ("code", "name", "image", "price", "count")
+            VALUES
+                ('AB14T45', 'Стол', 'https://ikea.com/table.png', -100.50, 10);
+        Ответ
+            Без ошибки
+            [2019-10-02 15:37:49] 1 row affected in 8 ms
